@@ -167,6 +167,9 @@ void convertToSensorEvent(const Event& src, sensors_event_t* dst) {
                 auto dstr = ::android::internal::ToString(d);
                 // ALOGE("Received 6DOF for expected scalar %s", dstr.c_str());
                 dst->data[0] = d.values[0];
+            } else if (src.payload.getTag() == Event::EventPayload::vec3) {
+                auto d = src.payload.get<Event::EventPayload::vec3>();
+                dst->data[0] = d.x;
             } else {
                 dst->data[0] = src.payload.get<Event::EventPayload::scalar>();
             }
